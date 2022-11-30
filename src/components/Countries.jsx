@@ -6,18 +6,30 @@ export default function Countries() {
   // Fetching data from an API within React
   const [countries, setCountries] = useState([]);
   // Asynchronus function method
+  // useEffect(() => {
+  //   const getCountries = async () => {
+  //     try {
+  //       const res = await fetch("https://restcountries.com/v3.1/all");
+  //       const data = await res.json();
+  //       setCountries(data.slice(0, 10));
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getCountries();
+  // }, []);
+
+  // AXIOS METHOD TO FETCH API
+  const fetchCountries = () => {
+    axios
+      .get("https://restcountries.com/v3.1/all")
+      .then((response) => setCountries(response.data.slice(0, 10)));
+  };
+
   useEffect(() => {
-    const getCountries = async () => {
-      try {
-        const res = await fetch("https://restcountries.com/v3.1/all");
-        const data = await res.json();
-        setCountries(data.slice(0, 10));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getCountries();
+    fetchCountries();
   }, []);
+
   return (
     <>
       {!countries ? (
@@ -25,10 +37,10 @@ export default function Countries() {
           Loading...
         </h1>
       ) : (
-        <div>
+        <div className="container mx-auto p-8">
           {/* {form} */}
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {countries.map((country) => (
               <Article key={country.name.common} {...country} />
             ))}
