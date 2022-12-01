@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Destructuting the props of the API
+// Destructuring the props of the API
 export default function Article({
   flags,
   name,
@@ -12,7 +12,7 @@ export default function Article({
   return (
     <div>
       <Link to={`/${name.common}`}>
-        <article className="overflow-hidden rounded-lg bg-white shadow transition-all duration-200 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <article className="overflow-hidden rounded-lg bg-white shadow transition-all duration-200 hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
           <img
             src={flags.svg}
             alt="flags"
@@ -23,7 +23,7 @@ export default function Article({
               {name.common}
             </h2>
             <ul className="flex flex-col items-start justify-start gap-2 dark:text-gray-400">
-              <li>Population: {population.toLocalString}</li>
+              <li>Population: {population}</li>
               <li>Region: {region}</li>
               <li>Subregion: {subregion}</li>
             </ul>
