@@ -23,7 +23,7 @@ export default function Countries() {
       name: "Oceania",
     },
     {
-      name: "Antarctica",
+      name: "Antarctic",
     },
   ];
 
@@ -33,7 +33,7 @@ export default function Countries() {
       try {
         const res = await fetch("https://restcountries.com/v3.1/all");
         const data = await res.json();
-        setCountries(data.slice(0, 10));
+        setCountries(data);
       } catch (error) {
         console.error(error);
       }
@@ -53,9 +53,26 @@ export default function Countries() {
     }
   }
 
+  async function filterByRegion(region) {
+    try {
+      const res = await fetch(
+        `https://restcountries.com/v3.1/region/${region}`
+      );
+      const data = await res.json();
+      setCountries(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   function handleSearchCountry(e) {
     e.preventDefault();
     searchCountry();
+  }
+
+  function handleFilterByRegion(e) {
+    e.preventDefault();
+    filterByRegion();
   }
 
   // AXIOS METHOD TO FETCH API
@@ -96,8 +113,10 @@ export default function Countries() {
               />
             </form>
 
-            <form>
+            <form onSubmit={handleFilterByRegion}>
               <select
+                value={regions.name}
+                onChange={(e) => filterByRegion(e.target.value)}
                 name="filter-by-region"
                 id="filter-by-region"
                 className="w-52 rounded py-3 px-4 text-gray-600 shadow outline-none dark:bg-gray-800 dark:text-gray-400 dark:focus:bg-gray-700"
